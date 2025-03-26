@@ -62,4 +62,27 @@ pub fn sqlite(
         .collect::<Result<Vec<_>, _>>()?;
 
     Ok(Value::Array(rows.into_iter().collect::<Array>()))
+} 
+
+
+
+
+
+
+
+
+#[scope]
+impl sqlite {
+    
+    ///
+    /// This function is deprecated. 
+    /// directly.
+    #[func(title = "Decode JSON")]
+    pub fn decode(
+        engine: &mut Engine,
+        /// JSON data.
+        data: Spanned<Readable>,
+    ) -> SourceResult<Value> {
+        json(engine, data.map(Readable::into_source))
+    }
 }
